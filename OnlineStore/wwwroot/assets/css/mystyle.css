@@ -1,7 +1,15 @@
 ﻿
-    .photofileimage {
-        border-radius:20%;
-        border:2px solid white;
+.photofileimage {
+    border-radius: 20%;
+    border: 2px solid #c05532;
+}
 
-    }
+.MyProductImages {
+    border-radius: 20%;
+    border: 2px solid #c05532;
+    width: 300px;
+    height: 305px;
+    margin-bottom: 45px;
+    margin-top: -25px;
+}
 
