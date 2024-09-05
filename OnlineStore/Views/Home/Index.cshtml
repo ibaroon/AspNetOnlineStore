@@ -1,11 +1,59 @@
-﻿@model List<OnlineStore.Models.Catigory>
+﻿@* when we passed ingle object from controller @model List<OnlineStore.Models.Catigory> *@
+@model OnlineStore.Models.IndexVm
+
+    <div class="container mt-5 mb-5">
+    <form asp-action="ProductSearch" method="GET" asp-controller="Home">
+    <div class="row">
+       
+            <input type="submit"  class="col-sm-2 btn btn-primary" value="ابحث"/> 
+            <div class="col-sm-10">
+                <input name="pname" id="pname" type="text" class="form-control" placeholder="اسم المنتج" style="text-align:right;" required />
+            </div>
+       </div>
+    </form>
+    </div>
+
+
+<!-- ======= Services Section ======= -->
+<section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>اقسام المنتجات</h2>
+            <p>نتميز بمنتجات عالية الجودة</p>
+        </div>
+        <div class="row gy-4">
+
+            @foreach (var item in Model.Categories)
+            {
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box iconbox-blue" style="width: 100%;">
+                        <div class="icon">
+                            <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                            </svg>
+                            <i class="bx @item.Photo" style=" font-size:80px;"></i>
+                        </div>
+                        <h4><a href="/Home/Products/@item.Id">@item.Name</a></h4>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            }
+
+
+
+
+        </div>
+
+    </div>
+</section><!-- End Services Section -->
 
 <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Portfolio</h2>
+          <h2>المنتجات</h2>
           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
@@ -13,9 +61,9 @@
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Categories)
                     {
-                        <li data-filter=".filter-app">@item.Name</li>
+                        <li data-filter=".x-@item.Id">@item.Name</li>
                     }
                    
              
@@ -24,134 +72,188 @@
         </div>
 
         <div class="row portfolio-container">
+@foreach (var item in Model.Products)
+            {
+                <div class="col-lg-4 col-md-6 portfolio-item x-@item.Cat.Id">
+                    <div class="portfolio-wrap">
+                        <img src="../@item.Photo" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>@item.Name</h4>
+                            <p>@item.Price</p>
+                        </div>
+                        <div class="portfolio-links">
+                            <a href="../@item.Photo" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="/Home/ProductDetails/@item.Id" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>App</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
+         
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-              </div>
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-
+       
         </div>
 
       </div>
     </section><!-- End Portfolio Section -->
+<!-- ======= Testimonials Section ======= -->
+<section id="testimonials" class="testimonials section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>اراء العملاء</h2>
+            <p>بعض من اراء عملاءنا المميزين</p>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model.Reviews)
+                {
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p style="min-height:200px;">
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                @item.Description
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <img src="~/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                            <h3>@item.Name</h3>
+                            <h4>@item.Subject</h4>
+                        </div>
+                    </div>
+
+                    <!-- End testimonial item -->
+                }
+
+
+
+
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+</section><!-- End Testimonials Section -->
+<!-- ======= Pricing Section ======= -->
+<section id="pricing" class="pricing portfolio-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>احدث المنتجات</h2>
+            <p>المنتجات المضافة مؤخرا</p>
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model.LatestProducts)
+            {
+                <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box featured">
+                        <h3 style="overflow:hidden;height:60px">@item.Name</h3>
+                        <h4>@item.Price</h4>
+                        <h6>@item.CreatedAt</h6>
+                        <img src="../@item.Photo" alt="" style="height:250px;max-width:200px; border-radius: 3%;">
+                        <div class="btn-wrap">
+                            <a href="/Home/ProductDetails/@item.Id" class="btn-buy">تفاصيل</a>
+                        </div>
+                    </div>
+                </div>
+            }
+         
+             
+            
+
+        
+
+            
+
+           
+
+        </div>
+
+    </div>
+</section><!-- End Pricing Section -->
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>تواصل معنا</h2>
+            <p>يمكنك التواصل معنا عبر البريد الالكتروني للموقع وسيتم الرد عليك في اقرب فرصة ممكنة , رايكم يهمنا</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="info-box mb-4">
+                    <i class="bx bx-map"></i>
+                    <h3>العنوان</h3>
+                    <p>A108 Adam Street, New York, NY 535022</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="info-box  mb-4">
+                    <i class="bx bx-envelope"></i>
+                    <h3>البريد الالكتروني</h3>
+                    <p>
+                        <a href="mailto:ahmeds7010@gmail.com" target="_blank">ahmeds7010@gmail.com</a>
+                        </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="info-box  mb-4">
+                    <i class="bx bx-phone-call"></i>
+                    <h3>ارقام الاتصال</h3>
+                    <p>
+                        <a href="https://api.whatsapp.com/send?phone=+99823428)" target="_blank">+96899823428</a>
+                        </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-6 ">
+                <iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d14635.600535961607!2d58.49726015!3d23.5001063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2som!4v1725626528927!5m2!1sen!2som" frameborder="0" style="border:0; width: 100%; height: 340px;" allowfullscreen></iframe>
+            </div>
+
+            <div class="col-lg-6" dir="rtl">
+                <form asp-action="SendReview" asp-controller="Home" method="post"  class="MyForm">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="text" name="cName" class="form-control" id="cname" placeholder="الاسم" required>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="email" class="form-control" name="cEmail" id="cemail" placeholder="البريد الالكتروني" required>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control" name="cSubject" id="csubject" placeholder="الموضوع"  required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <textarea class="form-control" name="cDescription" rows="5" placeholder="الرسالة" required></textarea>
+                    </div>
+                    <!--div class="my-3">
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                    </div-->
+                                   
+                    @if (GlobalVals.msg==1)
+                    {
+                      <div class="my-3">
+                        <!--div class="loading">Loading</!--div>
+                        <div-- class="error-message"></div-->
+                            <div class="sent-message"><font color="green"><strong>تم ارسال رسالتك بنجاح , شكرا !</strong></font></div>
+                    </div>  
+                   GlobalVals.msg=0; }
+                    <div class="text-center"><input type="submit" class="col-sm-2 btn btn-primary" value="ارسال" /></div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End Contact Section -->

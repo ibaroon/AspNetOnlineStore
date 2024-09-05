@@ -17,7 +17,11 @@ public partial class Product
 
     public string? Photo { get; set; }
 
+    public DateOnly? CreatedAt { get; set; }
+
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     public virtual Catigory? Cat { get; set; }
+
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 }

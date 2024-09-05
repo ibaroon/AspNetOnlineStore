@@ -21,6 +21,8 @@ public partial class SouqcomContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
+
     public virtual DbSet<Review> Reviews { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -70,6 +72,15 @@ public partial class SouqcomContext : DbContext
             entity.HasOne(d => d.Cat).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CatId)
                 .HasConstraintName("FK_product_catigory");
+        });
+
+        modelBuilder.Entity<ProductImage>(entity =>
+        {
+            entity.Property(e => e.Image).HasColumnName("image");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_ProductImages_product");
         });
 
         modelBuilder.Entity<Review>(entity =>
