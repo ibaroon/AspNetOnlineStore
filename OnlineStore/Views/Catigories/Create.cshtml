@@ -1,0 +1,50 @@
+﻿@model OnlineStore.Models.Catigory
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+<h2>Create</h2>
+
+<h4>Catigory</h4>
+<hr />
+
+    <div class="col-md-12">
+        <form asp-action="Create" class="MyForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row mx-auto">
+                <label asp-for="Name" class="col-md-4 label-control"></label>
+                <div class="col-md-6">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row mx-auto">
+                <label asp-for="Photo" class="col-md-4 control-label"></label>
+                <div class="col-md-6">
+                <input asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row mx-auto">
+                <label asp-for="Description" class="col-md-4 control-label"></label>
+                <div class="col-md-6">
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-warning" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+    </div>
+
+<br />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

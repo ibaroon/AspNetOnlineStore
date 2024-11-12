@@ -1,0 +1,25 @@
+﻿@model Product
+
+
+<div class="col-lg-4 col-md-6 portfolio-item x-@Model.CatId">
+    <div class="portfolio-wrap">
+        <img src="../@Model.Photo" class="img-fluid" alt="">
+
+        <div class="portfolio-info">
+            <h4>@Model.Name</h4>
+            <p>@Model.Price</p>
+        </div>
+
+        <div class="portfolio-links">
+            <a href="../@Model.Photo" class="portfolio-lightbox" title="@Model.Name"><i class="bx bx-plus"></i></a>
+            <a href="/Home/ProductDetails/@Model.Id" title="More Details"><i class="bx bx-link"></i></a>
+        </div>
+
+    </div>
+    <center>
+        <a class="btn btn-warning" title="Edit" asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id"><i class="bx bx-message-square-edit"></i></a> |
+        <a class="btn btn-success" title="Details" asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id"><i class="bx bx-list-ul"></i></a>|
+        <a class="btn btn-primary" title="Images" asp-controller="Products" asp-action="ProductImages" asp-route-id="@Model.Id"><i class="bx bx-image"></i></a> |
+        <a class="btn btn-danger" title="Delete" asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Id"><i class="bx bx-message-square-x"></i></a>
+    </center>
+</div>

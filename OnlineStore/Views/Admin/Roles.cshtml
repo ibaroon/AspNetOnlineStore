@@ -1,0 +1,47 @@
+﻿
+<div class="container">
+    <br />
+    <h2>Roles</h2>
+    <p>
+        @*if(this.User.Identity.IsAuthenticated)
+        {
+            
+        }*@
+        <a class="btn btn-primary" asp-action="CreateRole">Create New <i class="bi bi-plus"></i></a>
+    </p>
+    <div>
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Normalized Name</th>
+                    <th>Concurrency Stamp</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int cc = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@cc</td>
+                        <td>@item.Name</td>
+                        <td>@item.NormalizedName</td>
+                        <td>@item.ConcurrencyStamp</td>
+                        <td>
+                            <a class="btn btn-warning" title="Edit" asp-action="EditRole" asp-route-id="@item.Id"><i class="bx bx-message-square-edit"></i></a> |
+                            <a class="btn btn-primary" asp-action="RoleDetails" asp-route-id="@item.Id">Details</a> |
+                            <a class="btn btn-danger" title="Delete" asp-action="DeleteRole" asp-route-id="@item.Id"><i class="bx bx-message-square-x"></i></a>
+                        </td>
+
+                    </tr>
+                    cc = cc + 1;
+                }
+            </tbody>
+        </table>
+
+        </<div>
+        </div>

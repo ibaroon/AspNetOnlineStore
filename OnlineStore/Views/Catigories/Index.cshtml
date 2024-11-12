@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OnlineStore.Models.Catigory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*This page is depend on the Catigory Model , so we can control its content by using razor syantax to dispaly
+and the Model itself.
+for example if we change  [DisplayName("CatName")] inside the categiory class , all name in all pages will be CatName
+or if we add [required] name fileds will be required
+or if we add  [DataType(DataType.EmailAddress)] name fileds will be email 
+*@
+<div class="container">
+    <br />
+<h2>Catigories</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New <i class="bi bi-plus"></i></a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @{
+                int cc = 1; 
+            }
+            @foreach (var item in Model) {
+                
+                <tr>
+                    <td>@cc</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @*Html.DisplayFor(modelItem => item.Photo)
+                    we can use this syntax or the syntax below
+                *@
+                    @item.Photo
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="bx bx-message-square-edit"></i></a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bx bx-message-square-x"></i></a>
+            </td>
+                </tr>
+                cc = cc + 1;
+            }
+    </tbody>
+</table>
+</div>

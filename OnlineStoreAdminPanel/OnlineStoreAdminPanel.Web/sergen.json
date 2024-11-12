@@ -1,0 +1,12 @@
+﻿{
+  "Extends": "defaults@6.6.0",
+  "RootNamespace": "OnlineStoreAdminPanel",
+  "FileScopedNamespaces": true,
+  "ServerTypings": {
+    "LocalTexts": true
+  },
+  "UpgradeInfo": {
+    "InitialType": "Community",
+    "InitialVersion": "8.6.4.0"
+  }
+}

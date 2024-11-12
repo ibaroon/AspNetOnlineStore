@@ -1,0 +1,76 @@
+﻿@model List<OnlineStore.Models.ProductImage>
+
+
+
+
+<div class="container">
+    <br />
+    <h2>Product Images</h2>
+    <h4>@ViewBag.ProductName</h4>
+
+<hr />
+    <form asp-action="AddImages" asp-controller="Products" method="post" class="MyForm" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     
+
+ 
+                <input type="hidden" class="form-control" name="ProductId" id="ProductId" value="@ViewBag.ProductId">
+               
+        
+
+     
+        <br />
+        <div class="form-group row mx-auto">
+            <label class="col-md-6 label-control">Photo</label>
+            <div class="col-md-6">
+
+                <input type="file" name="File" id="File" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add" />
+            <a class="btn btn-warning" asp-action="Index">Back to List</a>
+
+        </div>
+    </form>
+
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>
+                    Image
+                </th>
+                
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int cc = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@cc</td>
+                   
+                    <td>
+                       <a href="../../@item.Image" target="_blank">@item.Image</a>
+                    </td>
+
+                   
+
+                    <td>
+                          <a class="btn btn-danger" asp-action="DeleteImage" asp-route-id="@item.Id"><i class="bx bx-message-square-x"></i></a>
+                    </td>
+                </tr>
+                cc = cc + 1;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

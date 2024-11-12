@@ -1,5 +1,7 @@
-﻿@* when we passed ingle object from controller @model List<OnlineStore.Models.Catigory> *@
+﻿@* when we passed single object from controller @model List<OnlineStore.Models.Catigory> *@
 @model OnlineStore.Models.IndexVm
+
+<!--partial name="_TestPartial" /-->
 
     <div class="container mt-5 mb-5">
     <form asp-action="ProductSearch" method="GET" asp-controller="Home">
@@ -12,8 +14,36 @@
        </div>
     </form>
     </div>
+<!--  Counts Section -->
+<section id="counts" class="counts">
+    <div class="container">
 
+        <div class="row counters">
 
+            <div class="col-lg-3 col-6 text-center">
+                <span data-purecounter-start="0" data-purecounter-end="@Html.ViewBag.CatCount" data-purecounter-duration="1" class="purecounter"></span>
+                <p>الاقسام</p>
+            </div>
+
+            <div class="col-lg-3 col-6 text-center">
+                <span data-purecounter-start="0" data-purecounter-end="@Html.ViewBag.ProductCount" data-purecounter-duration="1" class="purecounter"></span>
+                <p>المنتجات</p>
+            </div>
+
+            <div class="col-lg-3 col-6 text-center">
+                <span data-purecounter-start="0" data-purecounter-end="@Html.ViewBag.ClientCount" data-purecounter-duration="1" class="purecounter"></span>
+                <p>العملاء</p>
+            </div>
+
+            <div class="col-lg-3 col-6 text-center">
+                <span data-purecounter-start="0" data-purecounter-end="@Html.ViewBag.OrderCount" data-purecounter-duration="1" class="purecounter"></span>
+                <p>المنتجات المباعة</p>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End Counts Section -->
 <!-- ======= Services Section ======= -->
 <section id="services" class="services section-bg">
     <div class="container" data-aos="fade-up">
@@ -53,7 +83,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>المنتجات</h2>
+            <h2><a id="GetStart">المنتجات</a></h2>
           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
@@ -74,7 +104,7 @@
         <div class="row portfolio-container">
 @foreach (var item in Model.Products)
             {
-                <div class="col-lg-4 col-md-6 portfolio-item x-@item.Cat.Id">
+                <div class="col-lg-4 col-md-6 portfolio-item x-@item.CatId">
                     <div class="portfolio-wrap">
                         <img src="../@item.Photo" class="img-fluid" alt="">
                         <div class="portfolio-info">
@@ -82,10 +112,13 @@
                             <p>@item.Price</p>
                         </div>
                         <div class="portfolio-links">
-                            <a href="../@item.Photo" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="../@item.Photo"  class="portfolio-lightbox" title="@item.Name"><i class="bx bx-plus"></i></a>
                             <a href="/Home/ProductDetails/@item.Id" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
                     </div>
+                    <center>
+                        <a class="btn btn-danger" href="/Home/AddProductToCart/@item.Id">اضافة الى السلة <i class="bx bx-plus"></i></a>
+                    </center>
                 </div>
             }
 
@@ -157,6 +190,7 @@
                             <a href="/Home/ProductDetails/@item.Id" class="btn-buy">تفاصيل</a>
                         </div>
                     </div>
+          
                 </div>
             }
          
@@ -173,8 +207,47 @@
 
     </div>
 </section><!-- End Pricing Section -->
+
+<section id="pricing" class="pricing section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>اكثر المنتجات مبيعا</h2>
+            <p>المنتجات ذات اعلى نسب في المبيعات</p>
+           
+        </div>
+
+        <div class="row">
+            @foreach (var item in ViewBag.MostSold)
+            {
+                <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+                    <div class="box featured">
+                        <h3 style="overflow:hidden;height:60px">@item.name</h3>
+                        <h4>@item.count</h4>
+                        <img src="../@item.photo" alt="" style="height:250px;max-width:200px; border-radius: 3%;">
+                        <div class="btn-wrap">
+                            <a href="/Home/ProductDetails/@item.id" class="btn-buy">تفاصيل</a>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</section><!-- End Most Sold Section -->
 <!-- ======= Contact Section ======= -->
-<section id="contact" class="contact section-bg">
+<section id="contact" class="contact portfolio-bg">
     <div class="container" data-aos="fade-up">
 
         <div class="section-title">

@@ -1,0 +1,74 @@
+﻿@model OnlineStore.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <br />
+    <h2>Details</h2>
+
+    <div>
+        <h4>Product</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+               Cat Name
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Cat.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                Qty
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quan)
+            </dd>
+          
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedAt)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Photo)
+            </dt>
+            <dd class="col-sm-10">
+                @if (@Model.Photo!=null)
+                {
+                    <img src="../../@Model.Photo" width="150" height="150" />
+                }
+                else
+                {
+                   @:None
+                }
+
+                
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a class="btn btn-warning" asp-action="Index">Back to List</a>
+
+    </div>
+</div>
+<br />

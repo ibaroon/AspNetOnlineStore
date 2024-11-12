@@ -1,3 +1,35 @@
-﻿@{
-    Layout = "_Layout";
+﻿@*{
+    Layout = "_AdminLayout";
+}*@
+
+@*{
+    
+    string CurrentReq = ViewContext.RouteData.Values["controller"].ToString();
+    dynamic Layout;
+    switch (CurrentReq)
+    {
+        case "Home":
+            Layout = "~/Views/Shared/_Layout";
+            break;
+        default:
+            //Admin layout
+            Layout = "~/Views/Shared/_AdminLayout";
+            break;
+    }
+}*@
+@{
+    var routeUrl = ViewContext.RouteData.Values["controller"].ToString();
+    //you can put pages' name into pages
+    //var pages = new List<string> { "Index", "Cat" };
+    //if routeUrl contains any of pages,the page will use _Layout as Layout page,the other pages will use _Layout1 ad Layout page
+    //if (pages.Any(routeUrl.Contains))
+    if (routeUrl=="Home")
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        Layout = "_AdminLayout";
+    }
+
 }

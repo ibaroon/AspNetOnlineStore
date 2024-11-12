@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["external-global:Serenity"],
+  "sourcesContent": ["module.exports = Serenity;"],
+  "mappings": "osFAAA,IAAAA,EAAAC,EAAA,CAAAC,GAAAC,IAAA,CAAAA,EAAO,QAAU",
+  "names": ["require_Serenity", "__commonJSMin", "exports", "module"]
+}

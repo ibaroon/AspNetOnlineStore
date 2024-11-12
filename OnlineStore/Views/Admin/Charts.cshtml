@@ -1,0 +1,258 @@
+﻿@model OnlineStore.Models.IndexVm
+
+ 
+     
+<section class="users-edit d-flex flex-wrap">
+<div class="container">
+     
+    <div class="row">
+            <div class="col-xl-4 col-md-6 col-12">
+                <div class="card pull-up">
+                    <div class="card-content" style="background:lightblue;">
+                        <div class="card-body">
+
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="bx bx-file warning  float-left"></i> Categories
+                               
+                                <div class="media-body text-right">
+                                    <h3>@Model.Categories.Count</h3>
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <div class="card pull-up">
+                    <div class="card-content" style="background:lightgreen;">
+                        <div class="card-body">
+
+                            <div class="media d-flex">
+                                <div class="align-self-center">
+                                    <i class="bx bx-box warning  float-left"></i>Products
+                                
+                                <div class="media-body text-right">
+                                    <h3>@Model.Products.Count</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12" >
+                <div class="card pull-up" >
+                    <div class="card-content" style="background:pink;">
+                        <div class="card-body" >
+
+                            <div class="media d-flex" >
+                                <div class="align-self-center">
+                                    <i class="bx bx-file warning  float-left"></i>Reviews
+                                
+                                <div class="media-body text-right">
+                                    <h3>@Model.Reviews.Count</h3>
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="row">&nbsp;</div>
+           
+        <div class="col-md-12">
+                <div class="card pull-up">
+                    <div class="card-content">
+                        <div class="card-body">
+           
+    <canvas id="myChart"></canvas>
+    </div>
+    </div>
+   </div>
+   </div>
+            <div class="col-md-12">
+                <div class="card pull-up">
+                    <div class="card-content">
+                        <div class="card-body">
+               
+    <canvas id="myxChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+        </section>
+
+<script>
+// --------------------------------- recive all product data as jason and put it into the chatjs
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            // url that goes to the api we created
+            url: "https://localhost:7245/admin/GetAllProducts",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+//------------------------------------in success put the chartjs function----------------------- 
+                //alert("ok");
+                console.log(response.$values);
+                // put names into labels
+                // because result is object
+                labels = response.$values.map(x => x.name)
+                // if result is array  labels = response.map(x => x.name)
+               
+                // put quatities into values
+                // because result is object
+                values = response.$values.map(x => x.quan)
+                // if result is array values = response.map(x => x.quan)
+
+                console.log(labels);
+                console.log(values);
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: '# Products Qty Statistics',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        boarderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1,
+                        data: values
+
+                    }]
+                };
+
+                //type=bar,line,doughnut,pie,polarArea,radar
+                const config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                };
+
+
+                const myChart = new Chart(document.getElementById('myChart'), config);
+
+            },
+            
+            error: function (response) {
+                console.log(response);
+                alert("Error");
+            }
+        });
+    });
+    //----------------------------
+
+
+
+
+
+    // const ctx = document.getElementById('myChart');
+    /*
+    const labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: '# Products Qty Statistics G1',
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            boarderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1,
+            data: [12, 19, 3, 5, 2, 3]
+           
+        },
+        {
+            label: '# Products Qty Statistics G2',
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            boarderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1,
+            data: [2, 1, 13, 5, 20, 3]
+
+        }]
+    };
+    
+    //type=bar,line,doughnut,pie,polarArea,radar
+    const config = {
+        type: 'bar',
+        data: data,
+        options: { 
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+
+    const myChart = new Chart(document.getElementById('myChart'),config);
+*/
+//-----------------------------------------------------------------------------------------
+
+    const xlabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+    const datax = {
+        labels: xlabels,
+        datasets: [{
+            label: '# Products Price Statistics',
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            boarderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1,
+            data: [2, 3, 9, 5, 12, 13]
+
+        }]
+    };
+    const configx = {
+        type: 'doughnut',
+        data: datax,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+  //  const myxChart = new Chart(document.getElementById('myxChart'), configx);
+</script>

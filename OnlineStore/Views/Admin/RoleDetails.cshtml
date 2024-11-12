@@ -1,0 +1,36 @@
+﻿<div class="container">
+    <br />
+    <h2>Details</h2>
+
+    <div>
+        <h4>Role</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Name
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Name
+            </dd>
+            <dt class="col-sm-2">
+                Normalized Name
+            </dt>
+            <dd class="col-sm-10">
+                @Model.NormalizedName
+            </dd>
+            <dt class="col-sm-2">
+                Concurrency Stamp
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ConcurrencyStamp
+            </dd>
+        
+        </dl>
+    </div>
+    <div>
+        <a class="btn btn-primary" asp-action="EditRole" asp-route-id="@Model?.Id">Edit</a> |
+        <a class="btn btn-warning" asp-action="Roles">Back to List</a>
+
+    </div>
+</div>
+<br />

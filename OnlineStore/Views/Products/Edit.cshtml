@@ -1,0 +1,89 @@
+﻿@model Product
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="container">
+    <br />
+    <h2>Edit</h2>
+
+    <h4>Product</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group row mx-auto">
+                    <label asp-for="Name" class="col-md-4 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Name" class="form-control" />
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row mx-auto">
+                    <label  class="col-md-4 label-control">Category</label>
+                    <div class="col-md-6">
+                        @Html.DropDownList("CatId", (SelectList)ViewBag.CatList, "Choose Dapartment", new { @class = "form-control" })
+
+                        <!--input type="text" name="CatName" class="form-control" id="CatName"-->
+                        <span asp-validation-for="CatId" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+             
+                <div class="form-group row mx-auto">
+                    <label asp-for="Price" class="col-md-4 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Price" class="form-control" />
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row mx-auto">
+                    <label asp-for="Quan" class="col-md-4 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Quan" class="form-control" />
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row mx-auto">
+                    <label asp-for="Description" class="col-md-4 control-label"></label>
+                    <div class="col-md-6">
+                        <textarea asp-for="Description" class="form-control" />@Model.Description</textarea>
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row mx-auto">
+                    <label  class="col-md-4 label-control">Photo</label>
+                    <div class="col-md-6">
+
+                        <input type="file" name="File" id="File" class="form-control">
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row mx-auto">
+                    <label asp-for="CreatedAt" class="col-md-4 label-control"></label>
+                    <div class="col-md-6">
+                        <input type="Date" asp-for="CreatedAt" class="form-control">
+                        <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <br />
+             
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a class="btn btn-warning" asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+

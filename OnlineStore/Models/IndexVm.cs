@@ -8,6 +8,7 @@
             Products = new List<Product>();
             Reviews = new List<Review>();
             LatestProducts = new List<Product>();
+           
             //sts = 0;
         }
         public List<Catigory> Categories { get; set; }
@@ -15,5 +16,7 @@
         public List<Review> Reviews { get; set; }
         public List<Product> LatestProducts { get; set; }
         //public int sts { get; set; }
+        public int CartCount { get; set; }
+        
     }
 }

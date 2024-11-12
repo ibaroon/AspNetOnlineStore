@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor IHttpContextAccessor
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -15,8 +15,12 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet"></link>
+    <link async='async' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
   <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="~/assets/css/animate.css"> <!--   wow animation css --->
     <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -27,7 +31,25 @@
   <!-- Template Main CSS File -->
     <link href="~/assets/css/style.css" rel="stylesheet">
     <link href="~/assets/css/mystyle.css" rel="stylesheet">
+    <!-- Chartjs File -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- JQUERY File -->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-JobWAqYk5CSjWuVV3mxgS+MmccJqkrBaDhk8SKS1BW+71dJ9gzascwzW85UwGhxiSyR7Pxhu50k+Nl3+o5I49A==" crossorigin="anonymous" referrerpolicy="no-referrer"></!--script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- dataTable  -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.css" />
 
+    <script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+  
+    <script src="~/assets/js/wow.min.js"></script> <!--   wow animation js --->
+    <script>
+        new WOW().init();
+    </script>
   <!-- =======================================================
   * Template Name: Techie
   * Template URL: https://bootstrapmade.com/techie-free-skin-bootstrap-3/
@@ -35,25 +57,33 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
 </head>
-
+@{
+    string url = "";
+    url = Context.Request.Path;
+}
 <body>
-
+   
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center justify-content-between">
-            <h1 class="logo"><a href="~/index.html">السرور</a></h1>
+    <div class="container d-flex align-items-center justify-content-between" dir="rtl">
+            <h1 class="logo wow swing center" data-wow-iteration="infinite" data-wow-duration="0.15">
+                <a href="/Home/index"><font face="Tajawal">السرور</font></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="~/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="~/Home/Index">الرئيسية</a></li>
-          <li><a class="nav-link scrollto" href="~/Home/Cat">اقسام المنتجات</a></li>
-          <li><a class="nav-link scrollto" href="~/Home/Cart">السلة</a></li>
-                    <li><a class="nav-link scrollto" href="~/Home/ProductSearch?xnamepname">البحث</a></li>
-          @*<li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                <ul>
+
+
+<li><a class="nav-link scrollto @if (url=="/Home/Index" || url=="/home" || url=="/"){<text>active</text>}" href="~/Home/Index">الرئيسية</a></li>
+<li><a class="nav-link scrollto @if (url.Contains("/Home/Cat")){<text>active</text>}" href="~/Home/Cat">اقسام المنتجات</a></li>
+<li><a class="nav-link scrollto  @if (url.Contains("/Home/Cart")){<text>active</text>}" href="~/Home/Cart">السلة &nbsp;<font color="white"><sup style="background-color:red;border-radius:20px;"> &nbsp; @IHttpContextAccessor.HttpContext.Session.GetInt32("CartTot") &nbsp;</sup></font></a></li>
+<li><a class="nav-link scrollto  @if (url.Contains("/Home/ProductSearch")){<text>active</text>}" href="~/Home/ProductSearch?xnamepname">البحث</a></li>
+<partial name="_LoginPartial" />
+          
+                    @*<li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -88,7 +118,9 @@
         <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1>موقع السرور للتسوق الرقمي</h1>
           <h2>متعة التسوق عبر موقعنا</h2>
-          <div><a href="#about" class="btn-get-started scrollto">ابدأ الان</a></div>
+                    <div class="wow pulse animated" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s" style="visibility: visible; animation-duration: 2s; animation-delay: 300ms; animation-iteration-count: infinite; animation-name: pulse;">
+                        <a href="~/Home/ProductSearch" class="btn-get-started scrollto">ابدأ الان</a>
+                </div>
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
                     <img src="~/assets/img/sorror_logo.jpg" class="img-fluid photofileimage animated" alt="">

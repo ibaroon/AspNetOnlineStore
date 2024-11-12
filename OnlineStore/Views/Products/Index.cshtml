@@ -1,0 +1,89 @@
+﻿@model List<Product>
+
+
+
+
+<div class="container">
+<br />
+<h2>Products</h2>
+<p>
+    <!--a class="btn btn-primary" asp-action="Create">Create New <i class="bi bi-plus"></i></a-->
+        <a class="btn btn-primary" asp-action="Create2">Create New <i class="bi bi-plus"></i></a>
+</p>
+   @*Cards Design*@
+
+
+    @*Table Design *@
+    <div >
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>
+                Category
+            </th>
+            <th>
+                Name
+            </th>
+           
+            <th>
+                Price
+            </th>
+            <th>
+                Qty
+            </th>
+            <!--th>
+                Description
+            </th-->
+                <th>
+                    Created Date
+                </th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int cc = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@cc</td>
+                <td>
+                    @if(item.CatId!=null){@item.Cat.Name}
+                </td>
+                <td>
+                     @item.Name
+                </td>
+             
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    @item.Quan
+                </td>
+                <!--td>
+                    @item.Description
+                </td--->
+                    <td>
+                        @item.CreatedAt
+                    </td>
+               
+                <td>
+                        <a class="btn btn-warning" title="Edit" asp-action="Edit" asp-route-id="@item.Id"><i class="bx bx-message-square-edit"></i></a> |
+                        <a class="btn btn-success" title="Details" asp-action="Details" asp-route-id="@item.Id"><i class="bx bx-list-ul"></i></a>|
+                        <a class="btn btn-primary" title="Images" asp-action="ProductImages" asp-route-id="@item.Id"><i class="bx bx-image"></i></a> |
+                        <a class="btn btn-danger" title="Delete" asp-action="Delete" asp-route-id="@item.Id"><i class="bx bx-message-square-x"></i></a>
+                </td>
+            </tr>
+            cc = cc + 1;
+        }
+    </tbody>
+</table>
+</div>
+</div>
+
+
+
+

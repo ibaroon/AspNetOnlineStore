@@ -47,8 +47,9 @@
                             <li><strong>السعر</strong> : @Model.Price</li>
                             <li><strong>تاريخ الاضافة</strong> : @Model.CreatedAt</li>
                             <!--li><strong>Project URL</strong>: <a href="#">www.example.com</a></!--li-->
+                            <li> <img src="../../../@Model.Photo" width="125" height="100" style="border-radius:10px"/></li>
                         </ul>
-                        <button class="btn btn-danger">اضافة الى السلة <i class="bi bi-plus"></i></button>
+                        <a class="btn btn-danger" href="/Home/AddProductToCart/@Model.Id">اضافة الى السلة <i class="bi bi-plus"></i></a>
                     </div>
                    
                         <div class="portfolio-description">

@@ -1,0 +1,212 @@
+﻿
+<div class="container">
+
+<br /><br />
+<div class="form-group">
+    <label for="name">Name :</label>
+    <input type="text" class="form-control" id="name" />
+        <input type="hidden" class="form-control" id="idnum" />
+</div>
+<div class="form-group">
+    <label for="price">Price :</label>
+    <input type="text" class="form-control" id="price" />
+</div>
+<div class="form-group">
+    <label for="quan">Quan :</label>
+    <input type="text" class="form-control" id="quan" />
+</div>
+<br />
+    <div class="form-group">
+    <button type="submit" class="btn btn-sm btn-primary" id="savebtn">Add</button>
+
+        <button type="submit" class="btn btn-sm btn-warning" id="updatebtn">Update</button>
+    </div>
+  
+
+<div style="display:none" id="resultDiv">
+    <h2>Reservation</h2>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead><tr><th>ID</th><th>Name</th><th>Start Location</th><th>End Location</th></tr></thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+    <br /><br />
+
+    <table class="table table-sm table-striped table-bordered m-2" id="myTablee">
+        <thead>
+            <tr>
+                <th style="text-align:center">ID</th>
+                <th style="text-align:center">Name</th>
+                <th style="text-align:center">Price</th>
+                <th style="text-align:center">Qty</th>
+                <th style="text-align:center">Cat</th>
+                <th style="text-align:center">Photo</th>
+                <th style="text-align:center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+@* we can put this script into js page and include it into this page only*@
+@* we create table head then the tbody will come from the jquery*@
+@* this script used to get product data from api using ajax and display it into the table *@
+<script>
+    function GetAllCats() {
+        $.ajax({
+          
+            // url for api controller below
+            url: "https://localhost:7245/api/ValuesApi/ApiGetCats",
+            type: "get",
+            contentType: "application/json",
+            success: function (result, status, xhr) {
+                console.log(result);
+
+               
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr)
+            }
+        });
+    }
+    //-----------------------
+
+    function GetAllProducts() {
+        $.ajax({
+            // url for normal controller url: " https://localhost:7245/admin/ApiGetProducts",
+            // url for api controller below
+            url: "https://localhost:7245/api/ValuesApi/GetProducts",
+            type: "get",
+            contentType: "application/json",
+            success: function (result, status, xhr) {
+                console.log(result);
+
+                //if result is an [array] example come from db.Products.ToList() we will use loop like below
+                //$.each(result, function (index, value) {
+                // if data comes from db.Products.Include(x=>x.Cat).ToList() it will be [object] not array so loop will be like below
+                $("tbody").html("")
+                $.each(result.$values, function (index, value) {
+                    
+
+                    $("tbody").append($("<tr>"));
+                    appendElement = $("tbody tr").last();
+                    appendElement.append($("<td align='center'>").html(value["id"]));
+                    appendElement.append($("<td>").html(value["name"]));
+                    appendElement.append($("<td align='center'>").html(value["price"]));
+                    appendElement.append($("<td align='center'>").html(value["quan"]));
+                    appendElement.append($("<td>").html(value["catname"]));
+                    if (value["photo"]!=null) {
+                       appendElement.append($("<td align='center'>").html("<img width='100' height='100' src=../../" + value["photo"] + " ' \>"));
+                   }
+                  else
+                  {
+                       appendElement.append($("<td align='center'>").html(""));
+                    }
+                    appendElement.append($("<td <td align='center'>>").html("<a class='btn btn-danger' id= del_" + value["id"] + " ' \> Delete</a> | <a class='btn btn-warning' id= edi_" + value["id"] + " ' \> Edit</a>"));
+                   
+                });
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr)
+            }
+        });
+    }
+    GetAllProducts();
+    // ------------------------------------------- code for saving data -----------------------------------
+    $("#savebtn").click(function (e) {
+    
+        $.ajax({
+            url: "https://localhost:7245/api/ValuesApi/SaveProduct",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(
+                {
+                    name: $("#name").val(),
+                    price: $("#price").val(),
+                    quan: $("#quan").val()
+
+                }
+            ),
+          
+            success: function (result, status, xhr) {
+                //console.log(result);
+                alert("Success");
+                GetAllProducts();
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr)
+                alert("Faluir");
+            }
+        });
+    });
+
+//-------------------------------------------- delete-----------------------------
+
+    $("table").on("click", ".btn-danger", function () {
+        var ItemtId = $(this).parents("tr").find("td:nth-child(1)").text();
+        //alert(ItemtId);
+        $.ajax({
+            url: "https://localhost:7245/api/ValuesApi/DeleteProduct/" + ItemtId,
+            type: "delete",
+            contentType: "application/json",
+            success: function (result, status, xhr) {
+                alert("Deleted");
+                GetAllProducts();
+                
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+                alert("Faluir");
+
+            }
+        });
+    });
+//------------------------------------------------- fill data from table to form to prepare for  updating -----------------------
+    $("table").on("click", ".btn-warning", function () {
+        var ItemtId = $(this).parents("tr").find("td:nth-child(1)").text();
+        var name = $(this).parents("tr").find("td:nth-child(2)").text();
+        var price = $(this).parents("tr").find("td:nth-child(3)").text();
+        var quan = $(this).parents("tr").find("td:nth-child(4)").text();
+
+       // alert(name);
+        document.getElementById("idnum").value = ItemtId;
+        document.getElementById("name").value = name;
+        document.getElementById("price").value = price;
+        document.getElementById("quan").value = quan;
+      
+     
+    });
+//------------------- update-----------------
+    $("#updatebtn").click(function (e) {
+
+        $.ajax({
+            url: "https://localhost:7245/api/ValuesApi/UpdateProduct",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(
+                {
+                    id: $("#idnum").val(),
+                    name: $("#name").val(),
+                    price: $("#price").val(),
+                    quan: $("#quan").val()
+
+                }
+            ),
+
+            success: function (result, status, xhr) {
+                console.log(result);
+                alert("Success");
+                GetAllProducts();
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr)
+                alert("Faluir");
+            }
+        });
+    });
+
+
+
+</script>
+@*-------------------------------------------------------------------------------*@

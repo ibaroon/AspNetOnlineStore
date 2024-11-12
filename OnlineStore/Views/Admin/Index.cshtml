@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_loginLayout.cshtml";
+}
+<main b-ma8c18lieq="" id="main">
+<div class="container">
+   
+    <div class="row">
+        <center>
+        <div class="col-md-4">
+            <br />
+                <form id="account" method="post" novalidate="novalidate">
+                    <h4> Admin Panel Log In </h4>
+                    <hr>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Input_Email" name="Input.Email" value="">
+                        <label class="form-label" for="Input_Email">Email</label>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" type="password" data-val="true" data-val-required="The Password field is required." id="Input_Password" name="Input.Password">
+                        <label class="form-label" for="Input_Password">Password</label>
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label class="form-label" for="Input_RememberMe">
+                            <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Remember me? field is required." id="Input_RememberMe" name="Input.RememberMe" value="true">
+                            Remember me?
+                        </label>
+                    </div>
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    </div>
+                    <div>
+                        <p>
+                            <a id="forgot-password" href="/Identity/Account/ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a href="/Identity/Account/Register?returnUrl=%2F">Register as a new user</a>
+                        </p>
+                        <p>
+                            <a id="resend-confirmation" href="/Identity/Account/ResendEmailConfirmation">Resend email confirmation</a>
+                        </p>
+                    </div>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KnPXNaEZ8lBlwMzQ7w0q6Dxhagl_ITdhIhQvce_6m4P7lsU3ThjWouqZ688Abde61fKoTpi6vofEbEe4xe-4ACTcd3g_437AeNWsOxiMrE75yY503ufWOTn7s4XKow1LlzVcwK6HRqKFNXNzm0EBMg"><input name="Input.RememberMe" type="hidden" value="false">
+                </form>
+           
+        </div>
+      </center>  
+    </div>
+
+    </div>
+
+</main>

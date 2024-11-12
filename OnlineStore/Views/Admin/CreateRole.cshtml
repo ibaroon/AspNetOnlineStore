@@ -1,0 +1,47 @@
+﻿
+
+<div class="container">
+    <h2>Create</h2>
+
+    <h4>Role</h4>
+    <hr />
+
+    <div class="col-md-12">
+        <form asp-action="CreateRole" asp-controller="Admin" method="post" class="MyForm" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+
+            <div class="form-group row mx-auto">
+                <label class="col-md-6 label-control">Name</label>
+                <div class="col-md-6">
+                    <input type="text" name="name" class="form-control" id="name" required>
+                   
+                </div>
+            </div>
+            <br />
+            <div class="form-group row mx-auto">
+                <label class="col-md-6 label-control">Normalized Name</label>
+                <div class="col-md-6">
+                    <input type="text" name="normalizedname" class="form-control" id="normalizedname">
+
+                </div>
+            </div> 
+            <br />
+            <div class="form-group row mx-auto">
+                <label class="col-md-6 label-control">Concurrency Stamp</label>
+                <div class="col-md-6">
+                    <input type="text" name="ConcurrencyStamp" class="form-control" id="ConcurrencyStamp">
+
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Create" />
+                <a class="btn btn-warning" asp-action="Roles">Back to List</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+<br />

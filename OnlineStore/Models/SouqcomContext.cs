@@ -19,6 +19,10 @@ public partial class SouqcomContext : DbContext
 
     public virtual DbSet<Catigory> Catigories { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductImage> ProductImages { get; set; }
@@ -35,10 +39,9 @@ public partial class SouqcomContext : DbContext
         {
             entity.ToTable("cart");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ProductId).HasColumnName("product_id");
-            entity.Property(e => e.Qty).HasColumnName("qty");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Quan).HasDefaultValue(0);
+            entity.Property(e => e.UserId).IsUnicode(false);
 
             entity.HasOne(d => d.Product).WithMany(p => p.Carts)
                 .HasForeignKey(d => d.ProductId)
@@ -55,6 +58,29 @@ public partial class SouqcomContext : DbContext
             entity.Property(e => e.Photo).HasColumnName("photo");
         });
 
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.ToTable("Order");
+
+            entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.OrderDate).HasColumnType("datetime");
+            entity.Property(e => e.Phone).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<OrderDetail>(entity =>
+        {
+            entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK_OrderDetails_Order");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_OrderDetails_product");
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
             entity.ToTable("product");
@@ -65,8 +91,7 @@ public partial class SouqcomContext : DbContext
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Photo).HasColumnName("photo");
             entity.Property(e => e.Price)
-                .HasMaxLength(10)
-                .IsFixedLength()
+                .HasColumnType("decimal(18, 0)")
                 .HasColumnName("price");
 
             entity.HasOne(d => d.Cat).WithMany(p => p.Products)

@@ -1,6 +1,102 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-Cart
+﻿@model List<Cart>
+<br />
+<div class="container" data-aos="fade-up" dir="rtl">
+    <div class="section-title">
+        <h2>السلة</h2>
+
+    </div>
+
+    @if (Model.Count>0)
+    {
+
+<table class="table table-hover">
+            <tr class="table-secondary">
+    <th>#</th>
+    <th>المنتج</th>
+    <th>الصورة</th>
+    <th>الكمية</th>
+    <th>السعر</th>
+    <th>الاجمالي</th>
+    <th>#</th>
+
+</tr>
+        @{
+            int i = 1;
+            decimal sum = 0;
+        }
+        @foreach (var item in Model)
+        {
+           
+            int q = item.Quan.Value;
+            decimal p = item.Price.Value;
+            decimal t = q * p;
+            sum = sum + t;
+
+            <tr>
+      <td>@i</td>
+      <td>@item.Product.Name</td>
+      <td><a href="/Home/ProductDetails/@item.ProductId"><img src="../../@item.Product.Photo" width="100" height="100" style="border-radius:10px" /></a></td>
+      <td>@item.Quan</td>
+      <td>@item.Price</td>
+      <td> @*t*@
+          @(item.Quan*item.Price)
+      </td>
+                <td> <a class="btn btn-danger" title="Delete" href="CartDeletElement/@item.Id"><i class="bx bx-message-square-x"></i></a></td>
+            </tr>
+            i += 1;
+        }
+            <tr><td></td><td colspan="4"><strong>الاجمالي</strong></td><td><strong>@sum</strong></td><td></td> </tr>
+</table>
+
+<form method="post" asp-action="AddOrder" dir="rtl">
+   <br />
+        <div class="col-md-12">
+                <div class="section-title">
+                    <h2>بيانات الاتصال</h2>
+
+                </div>
+            <div class="form-group row mx-auto">
+        <div class="col-md-6">
+    <input class="form-control" type="text" name="Name" id="Name" placeholder="الاسم" required />
+    </div>
+        <div class="col-md-6">
+                    <input class="form-control" type="text" name="Address" id="Address" placeholder="العنوان" required />
+        </div>
+        </div>
+        <br />
+            <div class="form-group row mx-auto">
+        <div class="col-md-6">
+                    <input class="form-control" type="email" name="Email" id="Email" placeholder="البريد الالكتروني" required />
+        </div>
+        <div class="col-md-6">
+                    <input class="form-control" type="number" name="Phone" id="Phone" placeholder="الهاتف" required />
+        </div>
+        </div>
+        <br />
+            <div class="form-group row mx-auto">
+                    <div class="col-md-2">
+                    <label class="col-form-label">طريقة الدفع</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="radio" value="0" name="PayMeth" id="PayMeth" required> نقدا عند التوصيل
+                      
+                    </div>
+                    <div class="col-md-2">
+                        <input type="radio" value="1" name="PayMeth" id="PayMeth" required> دفع الكتروني
+
+                    </div>
+                       
+        </div>
+        </div>
+        <br />
+        <center><input type="submit" class="btn btn-success" value="اكمال الطلب" /> </center>
+        </form>
+
+    }
+    else
+    {
+        <center> <h4> <font color="red"> ! لا توجد مشتريات بعد</font></h4></center>
+    }
+
+</div>
+<br />

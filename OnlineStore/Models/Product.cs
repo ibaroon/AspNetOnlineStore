@@ -11,7 +11,7 @@ public partial class Product
 
     public string? Description { get; set; }
 
-    public string? Price { get; set; }
+    public decimal? Price { get; set; }
 
     public int? CatId { get; set; }
 
@@ -19,9 +19,13 @@ public partial class Product
 
     public DateOnly? CreatedAt { get; set; }
 
+    public int? Quan { get; set; }
+
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     public virtual Catigory? Cat { get; set; }
+
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 }

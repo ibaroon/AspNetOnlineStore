@@ -1,0 +1,50 @@
+﻿<div class="container">
+    <br />
+    <h2>Edit</h2>
+
+    <h4>User</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="EditUser" asp-controller="Admin" method="post" class="MyForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="form-group row mx-auto">
+                    <label class="col-md-4 control-label">User Name</label>
+                    <div class="col-md-6">
+                        <input type"text" Name="userName" value="@Model.UserName" class="form-control" required />
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="form-group row mx-auto">
+                    <label class="col-md-4 control-label">Email</label>
+                    <div class="col-md-6">
+                        <input type="email" Name="email" value="@Model.Email" class="form-control" />
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+                <div class="form-group row mx-auto">
+                    <label class="col-md-4 control-label">Phone</label>
+                    <div class="col-md-6">
+                        <input type="number" Name="phoneNumber" value="@Model.PhoneNumber" class="form-control" />
+                        <!--span asp-validation-for="ProductName" class="text-danger"></!--span-->
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a class="btn btn-warning" asp-action="Users">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />

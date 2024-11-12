@@ -1,0 +1,110 @@
+﻿@model List<OrderDetail>
+@*-------------------------- Using IFrame -------------------------*@ 
+<!--script src="https://app.fawaterk.com/fawaterkPlugin/fawaterkPlugin.min.js"></!--script-->
+<script charset="utf-8" type="text/javascript">
+    var first_name = '@Html.Raw(@ViewBag.Name)';
+    var email = "@ViewBag.Email";
+    var phone = "@ViewBag.Phone";
+    var address = "@Html.Raw(@ViewBag.Address)";
+    //var test2 = '@Html.Raw(@ViewBag.Name)';
+    var tot = @ViewBag.tot;
+    var Itemscount = @ViewBag.Itemscount;
+    var oredr_id = @ViewBag.OrderId;
+    var user_id = "@Html.Raw(@ViewBag.UserId)";
+        //const cartItems = {name:"aaa",price:"111",quantity:"222"};
+    var test = "مرحبا";
+
+    alert(first_name);
+    var cartItems = {}; // declare object that contain cart items
+
+    var NameArray = []; var PriceArray = []; var QuanArray = []; // arrays to store name ,peice and quan from razor page
+
+    @foreach (var d in @ViewBag.Items) // stor item name
+        {
+        @:NameArray.push("@Html.Raw(d.Product.Name)");
+        }
+    @foreach (var d in @ViewBag.Items) // store item price
+    {
+        @:PriceArray.push("@d.Price");
+    }
+    @foreach (var d in @ViewBag.Items) // stor item quan
+    {
+        @:QuanArray.push("@d.Quan");
+    }
+
+    // put cat items into the object
+   for (let i = 0; i < Itemscount; i++) { cartItems[i] = { name: NameArray[i], price: PriceArray[i], quantity: QuanArray[i] }; }
+
+       // alert(NameArray);
+
+    console.log(first_name);
+  
+
+    var pluginConfig = {
+        envType: "test",
+        hashKey: "HASH-KEY",
+        style: {
+            listing: "horizontal"
+        },
+        version: "0",
+        requestBody: {
+            "cartTotal": tot,
+            "currency": "EGP",
+            "customer": {
+                "first_name": first_name,
+                "last_name": first_name,
+                "email": email,
+                "phone": phone,
+                "address": address
+            },
+            "redirectionUrls": {
+                "successUrl": "https://dev.fawaterk.com/success",
+                "failUrl": "https://dev.fawaterk.com/fail",
+                "pendingUrl": "https://dev.fawaterk.com/pending"
+            },
+            "cartItems": cartItems,
+            "payLoad": {
+                "oredr_id": oredr_id,
+                "user_id": user_id
+            }
+        }
+    };
+    console.log(pluginConfig);
+    function pay() {
+        fawaterkCheckout(pluginConfig);
+    }
+@* ------------------------ End of Using IFrame ----------------------*@
+</script>
+<br />
+<br />
+
+<div class="container">
+    <div class="row">
+      
+        
+    <div class="col-6"><div id="fawaterkDivId"></div></div>
+    
+    <div class="col-6">
+           
+    <center>
+        <h1> تأكيد اكمال الطلب  </h1>
+        <h4> رقم طلبك  - @Html.ViewBag.OrderId</h4>
+       
+    </center>
+    <br />
+    <div class="col-md-12">
+                <center>
+                @if (Html.ViewBag.PayMeth==1)
+                {
+      <a class="btn btn-success" onclick="pay();">ادفع</a>
+                    }
+                    else
+                    {
+      <a class="btn btn-success" href="~/Home/Index">رجوع</a>
+                    }
+                </center>
+    </div>
+    </div>
+    </div>
+</div>
+<br />
